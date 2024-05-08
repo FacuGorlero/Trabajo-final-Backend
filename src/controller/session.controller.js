@@ -4,7 +4,7 @@ const { cartService, userService } = require("../repositories/services");
 const { logger } = require("../utils/logger");
 const multer = require("multer");
 const { upload } = require("../utils/multer");
-const { sendEmail } = require('../utils/sendMail')
+const { sendEmail } = require('../utils/sendmail')
 const jwt = require('jsonwebtoken')
 const { jwt_code } = require('../config/index')
 

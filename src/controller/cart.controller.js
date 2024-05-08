@@ -12,7 +12,7 @@ const {
 } = require("../services/errors/generateErrorinfo.js");
 const { EErrors } = require("../services/errors/eum.js");
 const { logger } = require("../utils/logger");
-const { sendEmail } = require('../utils/sendMail.js')
+const { sendEmail } = require('../utils/sendmail.js')
 
 class CartController {
   constructor(){

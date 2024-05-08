@@ -5,7 +5,7 @@ const {
   generateProductErrorInfo,
 } = require("../services/errors/generateErrorinfo.js");
 const { logger } = require("../utils/logger");
-const { sendEmail } = require('../utils/sendMail.js');
+const { sendEmail } = require('../utils/sendmail.js');
 
 class ProdcutsController {
   constructor(){
