@@ -79,11 +79,11 @@ class ViewsController {
           const { limit, pageNumber, sort, query } = req.query
           const parsedLimit = limit ? parseInt(limit, 10) : 10
           const userId = req.session && req.session.user ? req.session.user.user : null
-          //logger.info(userId)
+          logger.info(userId)
           const user = await this.userViewService.getUserBy({ _id: userId })
-          //console.log('User data:', user)
+          console.log('User data:', user)
           const { docs, hasPrevPage, hasNextPage, prevPage, nextPage, page } = await this.productViewService.getProducts({ limit: parsedLimit, pageNumber, sort, query })
-          //console.log(docs)
+          console.log(docs)
           res.render('productsView', {
               title: 'Products View',
               user,
@@ -216,7 +216,13 @@ class ViewsController {
         if (!user) {
             return res.status(400).json({ error: 'User not found' });
         }
+        if (isValidPassword(newPassword, { password: user.password })) {
+            return res.status(400).json({ error: 'You can not use the same password' })
+        }
 
+        await this.userViewService.updateUserPassword(decodedToken.userId, createHash(newPassword))
+
+        res.status(200).json({ message: 'Password updated successfully' })
         // Continuar con el proceso de cambio de contraseña...
     } catch (error) {
         logger.error('Error updating password:', error);

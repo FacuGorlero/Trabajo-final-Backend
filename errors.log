@@ -82,3 +82,12 @@ error: undefined
 error: undefined
 error: undefined
 error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: Incorrect product: One of these properties is not valid
+error: Incorrect product: One of these properties is not valid
+error: undefined {"code":"ERR_HTTP_INVALID_STATUS_CODE"}
+error: undefined
+error: Error updating user password: mongoose is not defined {"stack":"ReferenceError: mongoose is not defined\n    at userDaoMongo.updatePassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\Daos-Mongo\\mongo\\user.daomongo.js:36:13)\n    at UserRepository.updateUserPassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\repositories\\user.repository.js:11:68)\n    at resetPassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\controller\\views.controller.js:223:36)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"}
+error: Error updating password: mongoose is not defined {"stack":"ReferenceError: mongoose is not defined\n    at userDaoMongo.updatePassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\Daos-Mongo\\mongo\\user.daomongo.js:36:13)\n    at UserRepository.updateUserPassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\repositories\\user.repository.js:11:68)\n    at resetPassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\controller\\views.controller.js:223:36)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"}

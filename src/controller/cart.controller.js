@@ -238,6 +238,7 @@ class CartController {
   purchaseCart = async (req, res) => {
       try {
           const { cid } = req.params
+          const {user} = req.body
           
           const cart = await this.cartService.getCartById(cid)
           if (!cart) {
@@ -298,6 +299,26 @@ class CartController {
               await this.cartService.deleteAllProducts(cid)
               logger.info('----------Cart empty----------')
           }
+          const emailSubject = `Purchase details - Ticket ${ticketData.code}`;
+          const emailBody = `
+          <p>Thank you for your purchase, ${user.first_name} ${user.last_name}!</p>
+          <p>Details of your ticket:</p>
+          <ul>
+              <li><strong>Ticket Code:</strong> ${ticketData.code}</li>
+              <li><strong>Purchase Date:</strong> ${ticketData.purchase_datetime}</li>
+              <li><strong>Total Amount:</strong> ${ticketData.amount.toFixed(2)}</li>
+          </ul>
+          <p>Purchased Products:</p>
+          <ul>
+              ${purchasedProducts.map(product => `
+                  <li>
+                      <strong>${product.title}</strong> - Quantity: ${product.quantity}, Price: $${product.price.toFixed(2)}
+                  </li>
+              `).join('')}
+          </ul>
+          `
+          await sendEmail(user.email, emailSubject, emailBody)
+
           try {
               await Promise.all(productUpdates)
               return res.status(200).json({ status: 'success', message: 'Stock updated successfully' })

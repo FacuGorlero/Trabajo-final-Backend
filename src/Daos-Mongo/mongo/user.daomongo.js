@@ -1,5 +1,7 @@
 const { userModel } = require("./Models/user.model");
 const { logger } = require("../../utils/logger")
+const mongoose = require('mongoose');
+
 
 class userDaoMongo {
     constructor(){
