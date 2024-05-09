@@ -349,6 +349,59 @@ class SessionController {
           res.status(500).json({ message: 'Internal server error' })
       }
   }
+  verifyToken = async (req, res) => {
+    const { token } = req.cookies;
+    
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized: No token found' });
+    }
+    
+    jwt.verify(token, jwt_code, async (err, decodedUser) => {
+        if (err) {
+            return res.status(401).json({ message: 'Unauthorized: Invalid token' });
+        }
+        
+        const userFound = await this.userService.getUserBy({ _id: decodedUser.id });
+        if (!userFound) {
+            return res.status(401).json({ message: 'Unauthorized: User not found' });
+        }
+        
+        res.json({
+            status: 'success',
+            payload: {
+                id: userFound._id,
+                first_name: userFound.first_name,
+                last_name: userFound.last_name,
+                email: userFound.email,
+                role: userFound.role
+            }
+        });
+    });
+};
+
+deleteUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // Aquí deberías tener la lógica para eliminar el usuario según su ID
+        // Por ejemplo, podrías llamar a un método del servicio de usuario para realizar la eliminación
+
+        const deletedUser = await this.userService.deleteUser(userId);
+
+        if (!deletedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Aquí puedes enviar una respuesta JSON indicando que el usuario fue eliminado correctamente
+        return res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        // En caso de producirse algún error durante la eliminación, devolvemos un mensaje de error
+        console.error('Error deleting user:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
 
 }
 

@@ -21,7 +21,8 @@ const {
     uploadsMulter,
     uploadsMulterView,
     getAllUsers,
-    deleteInactiveUsers
+    deleteInactiveUsers,
+    deleteUser
 } = new SessionController()
 
 
@@ -52,5 +53,7 @@ router.get('/', isAdmin , getAllUsers)
 router.delete('/', isAdmin, deleteInactiveUsers)
 
 router.get('/user/:uid', user)
+
+router.delete('/users/:userId', deleteUser)
 
 module.exports = router
