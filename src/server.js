@@ -16,7 +16,7 @@ const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUiExpress = require('swagger-ui-express')
 
 
-
+// Configurar Handlebars con opciones para permitir el acceso a propiedades no propias
 const PORT = process.env.PORT
 const app = express()
 app.use(addLogger)
@@ -68,6 +68,10 @@ app.engine('hbs', handlebars.engine({
   extname: '.hbs',
   helpers: {
     eq: eq
+  },
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
   }
 }))
 app.set('view engine', 'hbs')
