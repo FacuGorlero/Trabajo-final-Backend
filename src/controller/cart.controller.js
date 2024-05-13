@@ -246,6 +246,7 @@ class CartController {
           }
           const productUpdates = []
           const productsNotPurchased = []
+          const purchasedProducts = []
           let totalAmount = 0
           for (const item of cart) {
               const productId = item.product.toString()
@@ -277,11 +278,17 @@ class CartController {
               //console.log("Product Price:", productPrice)
               //console.log("Quantity:", quantity)
               totalAmount += (quantity * productPrice)
+
+              purchasedProducts.push({
+                title: product.title,
+                quantity,
+                price: productPrice
+            })
           }
 
           logger.info(totalAmount)
           const userEmail = req.session.user.email
-          //console.log(userEmail)
+          console.log(userEmail)
           const ticketData = {
               code: 'TICKET-' + Date.now().toString(36).toUpperCase(),
               purchase_datetime: new Date(),
@@ -299,25 +306,27 @@ class CartController {
               await this.cartService.deleteAllProducts(cid)
               logger.info('----------Cart empty----------')
           }
-          const emailSubject = `Purchase details - Ticket ${ticketData.code}`;
-          const emailBody = `
-          <p>Thank you for your purchase, ${user.first_name} ${user.last_name}!</p>
-          <p>Details of your ticket:</p>
-          <ul>
-              <li><strong>Ticket Code:</strong> ${ticketData.code}</li>
-              <li><strong>Purchase Date:</strong> ${ticketData.purchase_datetime}</li>
-              <li><strong>Total Amount:</strong> ${ticketData.amount.toFixed(2)}</li>
-          </ul>
-          <p>Purchased Products:</p>
-          <ul>
-              ${purchasedProducts.map(product => `
-                  <li>
-                      <strong>${product.title}</strong> - Quantity: ${product.quantity}, Price: $${product.price.toFixed(2)}
-                  </li>
-              `).join('')}
-          </ul>
-          `
-          await sendEmail(user.email, emailSubject, emailBody)
+        //   const emailSubject = `Purchase details - Ticket ${ticketData.code}`;
+        //   const emailBody = `
+        //   <p>Thank you for your purchase, ${user.first_name} ${user.last_name}!</p>
+        //   <p>Details of your ticket:</p>
+        //   <ul>
+        //       <li><strong>Ticket Code:</strong> ${ticketData.code}</li>
+        //       <li><strong>Purchase Date:</strong> ${ticketData.purchase_datetime}</li>
+        //       <li><strong>Total Amount:</strong> ${ticketData.amount.toFixed(2)}</li>
+        //   </ul>
+        //   <p>Purchased Products:</p>
+        //   <ul>
+        //       ${purchasedProducts.map(product => `
+        //           <li>
+        //               <strong>${product.title}</strong> - Quantity: ${product.quantity}, Price: $${product.price.toFixed(2)}
+        //           </li>
+        //       `).join('')}
+        //   </ul>
+        //   `
+          
+        //   await sendEmail(userEmail, emailSubject, emailBody)
+         
 
           try {
               await Promise.all(productUpdates)

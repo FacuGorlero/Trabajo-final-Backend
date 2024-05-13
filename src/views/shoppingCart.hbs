@@ -13,6 +13,8 @@
         <a id="purchase" class="btn btn-secondary">BUY</a>
     </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <script>
 document.getElementById('purchase').addEventListener('click', function() {
@@ -30,12 +32,25 @@ document.getElementById('purchase').addEventListener('click', function() {
         throw new Error('Network response was not ok.')
     })
     .then(data => {
-        // Maneja la respuesta de éxito aquí
-        console.log(data)
+        // Muestra un mensaje de agradecimiento utilizando SweetAlert2
+        Swal.fire({
+            title: '¡Gracias por tu compra!',
+            text: 'Esperamos que disfrutes tus productos.',
+            icon: 'success',
+            confirmButtonText: 'Cerrar'
+        });
+        console.log(data);
     })
     .catch(error => {
-        // Maneja errores aquí
-        console.error('Error:', error)
-    })
+        // Muestra un mensaje de error en caso de que falle la compra
+        Swal.fire({
+            title: 'Error',
+            text: 'Ocurrió un error al procesar tu compra. Por favor, inténtalo de nuevo más tarde.',
+            icon: 'error',
+            confirmButtonText: 'Cerrar'
+        });
+        console.error('Error:', error);
+    });
 });
+
 </script>

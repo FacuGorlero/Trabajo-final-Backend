@@ -91,3 +91,26 @@ error: undefined {"code":"ERR_HTTP_INVALID_STATUS_CODE"}
 error: undefined
 error: Error updating user password: mongoose is not defined {"stack":"ReferenceError: mongoose is not defined\n    at userDaoMongo.updatePassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\Daos-Mongo\\mongo\\user.daomongo.js:36:13)\n    at UserRepository.updateUserPassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\repositories\\user.repository.js:11:68)\n    at resetPassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\controller\\views.controller.js:223:36)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"}
 error: Error updating password: mongoose is not defined {"stack":"ReferenceError: mongoose is not defined\n    at userDaoMongo.updatePassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\Daos-Mongo\\mongo\\user.daomongo.js:36:13)\n    at UserRepository.updateUserPassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\repositories\\user.repository.js:11:68)\n    at resetPassword (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\controller\\views.controller.js:223:36)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"}
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: Error during user login: Cannot read properties of null (reading 'email') {"stack":"TypeError: Cannot read properties of null (reading 'email')\n    at login (C:\\Users\\Usuario\\Desktop\\tp final backend -\\src\\controller\\session.controller.js:95:19)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)"}
+error: undefined {"_message":"products validation failed","errors":{"owner":{"kind":"required","message":"Path `owner` is required.","name":"ValidatorError","path":"owner","properties":{"message":"Path `owner` is required.","path":"owner","type":"required","value":null},"value":null}}}
+error: undefined {"_message":"products validation failed","errors":{"owner":{"kind":"required","message":"Path `owner` is required.","name":"ValidatorError","path":"owner","properties":{"message":"Path `owner` is required.","path":"owner","type":"required","value":null},"value":null}}}
+error: undefined {"_message":"products validation failed","errors":{"owner":{"kind":"required","message":"Path `owner` is required.","name":"ValidatorError","path":"owner","properties":{"message":"Path `owner` is required.","path":"owner","type":"required","value":null},"value":null}}}
+error: undefined {"_message":"products validation failed","errors":{"owner":{"kind":"ObjectId","message":"Cast to ObjectId failed for value \"admin\" (type string) at path \"owner\" because of \"BSONError\"","name":"CastError","path":"owner","reason":{},"stringValue":"\"admin\"","value":"admin","valueType":"string"}}}
+error: undefined {"_message":"products validation failed","errors":{"owner":{"kind":"required","message":"Path `owner` is required.","name":"ValidatorError","path":"owner","properties":{"message":"Path `owner` is required.","path":"owner","type":"required","value":null},"value":null}}}
+error: undefined {"_message":"products validation failed","errors":{"owner":{"kind":"required","message":"Path `owner` is required.","name":"ValidatorError","path":"owner","properties":{"message":"Path `owner` is required.","path":"owner","type":"required","value":null},"value":null}}}
+error: undefined {"_message":"products validation failed","errors":{"owner":{"kind":"required","message":"Path `owner` is required.","name":"ValidatorError","path":"owner","properties":{"message":"Path `owner` is required.","path":"owner","type":"required","value":null},"value":null}}}
+error: undefined {"_message":"products validation failed","errors":{"owner":{"kind":"required","message":"Path `owner` is required.","name":"ValidatorError","path":"owner","properties":{"message":"Path `owner` is required.","path":"owner","type":"required","value":null},"value":null}}}
+error: undefined
+error: undefined

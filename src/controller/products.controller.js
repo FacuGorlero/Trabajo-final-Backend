@@ -49,68 +49,72 @@ class ProdcutsController {
       }
   }
 
-  addProduct = async (req,res,next)=>{
-      try {
-          const {
-            title,
-            description,
-            price,
-            thumbnail,
-            code,
-            stock,
-            status,
-            category,
+ 
+    addProduct = async (req, res, next) => {
+        try {
+            const { product, user } = req.body;
+    
+            if (!product || !user) {
+                return res.status(400).json({ status: 'error', message: 'Product data and user data are required' });
+            }
+    
+            
+        console.log(product.title,
+            product.description,
+            product.price,
+            product.thumbnail,
+            product.code,
+            product.stock,
+            product.status,
+            product.category,
+            user)
+
         
-          } = req.body
-          
-          const user = req.session.user
+        
+        if (user.role !== 'premium' && user.role !== 'admin') {
+            return res.status(403).json({ status: 'error', message: 'Only user premium or admin can create product' })
+        }
+        console.log('pase el verificador, soy admin')
 
-          if (user.role !== 'premium') {
-              return res.status(403).json({ status: 'error', message: 'Only user premium can create product' })
-          }
-
-          if(!title || !price || !code || !stock){
-              customError.createError({
-                  name: 'Product creation error',
-                  cause: generateProductErrorInfo({
-                      title,
-                      description,
-                      price,
-                      thumbnail,
-                      code,
-                      stock,
-                      status,
-                      category
-                  }),
-                  message: 'Error trying to add a product',
-                  code: EErrors.DATABASE_ERROR
-              })
-          }
-
-          const owner = user._id
-
-          const newProduct = await this.productService.addProduct({
-              title,
-              description,
-              price,
-              thumbnail,
-              code,
-              stock,
-              status,
-              category,
-              owner, 
-          })
-      
-          res.json({
-              status: 'success',
-              payload: newProduct,
-              message: 'Product added successfully',
-          })
-          } catch (error) {
-            next(error)
-            //res.status(500).send('Server error')
-      }
-  }
+        const owner = user.id
+        const newProduct = await this.productService.addProduct({
+            title: product.title,
+            description: product.description,
+            price: product.price,
+            thumbnail: product.thumbnail,
+            code: product.code,
+            stock: product.stock,
+            status: product.status,
+            category: product.category,
+            owner,    
+        })
+        res.json({
+            status: 'success',
+            payload: {
+                product: {
+                    title: newProduct.title,
+                    description: newProduct.description,
+                    price: newProduct.price,
+                    thumbnail: newProduct.thumbnail,
+                    code: newProduct.code,
+                    stock: newProduct.stock,
+                    status: newProduct.status,
+                    category: newProduct.category,
+                    owner: newProduct.owner,
+                }
+            },
+            message: 'Product added successfully',
+        })
+    } catch (error) {
+        if (error.code === 'PRODUCT_EXISTS') {
+            res.status(400).json({ status: 'error', message: 'Product already exists' })
+        } else if (error.code === 'INVALID_PRODUCT') {
+            res.status(400).json({ status: 'error', message: 'Invalid product data' })
+        } else {
+            res.status(500).json({ status: 'error', message: 'Server error' })
+        }
+    }
+}
 
   updateProduct = async (req,res,next)=>{
       try{
